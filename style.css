@@ -1,0 +1,194 @@
+body {
+    background-color: #1E1E1E;
+    margin: 0;
+    height: 100vh;
+}
+
+#Logo {
+    position: sticky;
+    top: 0; /* Makes the logo stick to the top of the page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1E1E1E; /* Optional: to give it a background color */
+    z-index: 10; /* Ensures the logo stays above other elements */
+}
+
+#lLogo {
+    max-width: 20%;
+    height: auto;
+}
+
+#Btn{
+    width: 24.85%;
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(224, 139, 41);
+    background-color: #a5a71f07;
+    border: none;
+}
+
+#Btn:hover{
+    width: 24.85%;
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(223, 132, 29);
+    background-color: #a5a71f0e;
+    border: none;
+}
+
+#Btn:active{
+    width: 24.85%;
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(221, 98, 26);
+    background-color: #a5a71f17;
+    border: none;
+}
+
+#Btns {
+    margin-top: 0.3%;
+    display: flex;
+    justify-content: flex-end; /* Aligns to the right */
+    align-items: center; /* Centers vertically, if needed */
+    width: 24.85%;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(224, 114, 41);
+    background-color: #a5a71f07;
+    border: none;
+}
+
+#Btns:hover {
+    width: 24.85%;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(223, 132, 29);
+    background-color: #a5a71f0e;
+    border: none;
+}
+
+#Btns:active {
+    width: 24.85%;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(221, 98, 26);
+    background-color: #a5a71f17;
+    border: none;
+}
+
+#Btns {
+    display: flex;      
+    justify-content: flex-end;          
+}
+
+#Register{
+    justify-content: center;
+    align-items: center;
+    background: rgba(145, 145, 145, 0.048);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    background-image: url();
+    padding: 20px;
+    border-radius: 10px;
+    width: 450px;
+    text-align: center;
+    background: linear-gradient(45deg, #2e2e2e 0%, #4e4e4e73 100%);
+    animation: gradient 10s ease-in-out infinite; /* 2s - speed of animation */
+    background-size: 400%; 
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 40% 0%;
+    }
+    25% {
+        background-position: 45% 50%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    75% {
+        background-position: 60% 50%;
+    }
+    100% {
+        background-position: 80% 0%;
+    }
+}
+
+#RegisterContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.innput{
+    width: 25rem;
+    height: 30px;
+    border-radius: 5px;
+    
+}
+
+.llaberl{
+    display: flex;
+    text-align: right;
+    font-size: x-large;
+    font-family: monospace;
+}
+#submit{
+    font-size: xx-large;
+    font-family: monospace;
+    width: 6rem;
+    height: 30px;
+    border-radius: 5px;
+    background: linear-gradient(120deg, #21023a, #630788, #1f0120);
+    background-size: 200% 200%;
+    animation: smoothBackground 10s ease-in-out infinite;
+    border: none;
+}
+
+@keyframes smoothBackground {
+    0% {
+        background-position: 40% 0%;
+    }
+    25% {
+        background-position: 45% 50%;
+    }
+    50% {
+        background-position: 50% 100%;
+    }
+    75% {
+        background-position: 60% 50%;
+    }
+    100% {
+        background-position: 80% 0%;
+    }
+}
+
+#submit:hover{
+    font-size: xx-large;
+    font-family: monospace;
+    width: 6rem;
+    height: 30px;
+    border-radius: 5px;
+    background: linear-gradient(120deg, #21023a, #772a96, #1f0120);
+    background-size: 200% 200%;
+    animation: smoothBackground 10s ease-in-out infinite;
+    border: none;
+}
+#submit:active{
+    font-size: xx-large;
+    font-family: monospace;
+    width: 6rem;
+    height: 30px;
+    border-radius: 5px;
+    background: linear-gradient(120deg, #21023a, #881607, #1f0120);
+    background-size: 200% 200%;
+    animation: smoothBackground 10s ease-in-out infinite;
+    border: none;
+}
+
+.innput:invalid{
+    width: 25rem;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #c0c0c0;
+}
