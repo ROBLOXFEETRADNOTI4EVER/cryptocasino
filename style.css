@@ -2,6 +2,7 @@ body {
     background-color: #1E1E1E;
     margin: 0;
     height: 100vh;
+    
 }
 
 #Logo {
@@ -121,6 +122,7 @@ body {
 }
 
 .innput{
+    
     width: 25rem;
     height: 30px;
     border-radius: 5px;
@@ -136,12 +138,16 @@ body {
 #submit{
     font-size: xx-large;
     font-family: monospace;
-    width: 6rem;
+    color: rgb(187, 184, 184);
+    width: 7rem;
     height: 30px;
     border-radius: 5px;
-    background: linear-gradient(120deg, #21023a, #630788, #1f0120);
+    background: linear-gradient(120deg, #0f0f0f, #3b3b3b, #1f0120);
     background-size: 200% 200%;
     animation: smoothBackground 10s ease-in-out infinite;
+    -webkit-animation: submit 1s ease-in-out infinite alternate;
+    -moz-animation: submit 1s ease-in-out infinite alternate;
+    animation: submit 1s ease-in-out infinite alternate;
     border: none;
 }
 
@@ -166,23 +172,29 @@ body {
 #submit:hover{
     font-size: xx-large;
     font-family: monospace;
-    width: 6rem;
+    width: 7rem;
     height: 30px;
     border-radius: 5px;
-    background: linear-gradient(120deg, #21023a, #772a96, #1f0120);
+    background: linear-gradient(120deg, #616161, #6e4a12, #1f0120);
     background-size: 200% 200%;
     animation: smoothBackground 10s ease-in-out infinite;
+    -webkit-animation: submit 1s ease-in-out infinite alternate;
+    -moz-animation: submit 1s ease-in-out infinite alternate;
+    animation: submit 1s ease-in-out infinite alternate;
     border: none;
 }
 #submit:active{
     font-size: xx-large;
     font-family: monospace;
-    width: 6rem;
+    width: 7rem;
     height: 30px;
     border-radius: 5px;
-    background: linear-gradient(120deg, #21023a, #881607, #1f0120);
+    background: linear-gradient(120deg, #a10202, #5a3211, #1f0120);
     background-size: 200% 200%;
     animation: smoothBackground 10s ease-in-out infinite;
+    -webkit-animation: submit 1s ease-in-out infinite alternate;
+    -moz-animation: submit 1s ease-in-out infinite alternate;
+    animation: submit 1s ease-in-out infinite alternate;
     border: none;
 }
 
@@ -191,4 +203,36 @@ body {
     height: 30px;
     border-radius: 5px;
     background-color: #c0c0c0;
+}
+
+
+.llaberl{
+    color: white;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+      text-shadow: 0 0 5px #fff, 0 0 7px #fff, 0 0 30px #424041, 0 0 40px #585858, 0 0 50px #333333, 0 0 60px #383838, 0 0 70px #494949;
+    }
+    to {
+      text-shadow: 0 0 10px #fff, 0 1px #3a3a3a, 0 0 40px #202020, 0 0 50px #3f3f3f, 0 0 60px #2c2c2c, 0 0 70px #313131, 0 0 80px #333333;
+    }
+  }
+
+
+  @-webkit-keyframes submit {
+    from {
+      text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 30px #424041, 0 0 40px #585858, 0 0 50px #333333, 0 0 60px #383838, 0 0 70px #494949;
+    }
+    to {
+      text-shadow: 0 0 10px #fff, 0 1px #3a3a3a, 0 0 40px #202020, 0 0 50px #3f3f3f, 0 0 60px #2c2c2c, 0 0 70px #313131, 0 0 80px #333333;
+    }
+  }
+
+#registerfront{
+    text-align: center;
+    justify-content: center;
 }
