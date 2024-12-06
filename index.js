@@ -71,7 +71,7 @@ document.querySelector("#submit").addEventListener("click",function(event){
         let selectedWords = random(8);
         window.alert("DON'T SKIP IMPORTANT REMEMBER THIS WORDS")
         window.alert(selectedWords.join(", "));
-        
+        sessionStorage.setItem("username", username);
         console.log("Username before saving:", username);
 
         window.location.href = "succesregister.html";
