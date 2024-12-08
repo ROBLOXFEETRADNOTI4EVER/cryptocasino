@@ -46,8 +46,11 @@ document.querySelector("#submit").addEventListener("click",function(event){
             errorContainer.appendChild(errorMsg);
         });
     } else {
+        username = testusername
+
         alert("Form submitted sucesfuly!");
-        window.location.href = "Succes.html";
+        sessionStorage.setItem("username", username);
+        console.log("Username before saving:", username);
+        window.location.href = "succesregister.html";
     }
 });
-    let Usernamereall = document.getElementById("usernameReal").innerHTML = testusername

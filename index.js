@@ -77,5 +77,5 @@ document.querySelector("#submit").addEventListener("click",function(event){
         window.location.href = "succesregister.html";
     }
 });
+// need to do creat a databse where i can store user data andn retrive it 
 
-document.getElementById("usernameReal").innerHTML = ususu;

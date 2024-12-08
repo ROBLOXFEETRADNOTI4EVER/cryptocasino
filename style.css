@@ -236,3 +236,88 @@ body {
     text-align: center;
     justify-content: center;
 }
+
+#map {
+    border-color: #462647;
+    border-radius: 30px;
+    border-style: double;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.Cokkiebtn {
+    position: relative;
+    background-image: url("images/cookie.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    background-color: transparent;
+    width: 11em;
+    height: 11em;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+.Cokkiebtn:hover {
+    background-image: url("images/cookieHover.png");
+}
+
+
+.HideStuffbehindcookie {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2em;
+    text-decoration: none;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+.Cokkiebtn:active {
+    background-image: none;
+}
+
+.Cokkiebtn:active .HideStuffbehindcookie {
+    visibility: visible;
+}
+
+
+.tooltip-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#cookieBomber {
+    color: rgb(8, 165, 212);
+    text-align: center;
+    margin: 0;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: 100%; 
+    margin-top: 10px; 
+    background-color: rgba(163, 73, 163, 0.671);
+    color: #000000;
+    padding: 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    z-index: 1;
+}
+.tooltip-container:hover .tooltip {
+    display: block;
+}
+
+.Cokkiebtn:active{
+    background-image: none;
+}

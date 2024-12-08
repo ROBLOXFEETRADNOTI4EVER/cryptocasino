@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: dodgerblue;">
+    <h1>
+
+    </h1>
+    <a id="Randomstuff">
+
+    </a>
+    <script>
+        let changeelemet = document.getElementById("Randomstuff");
+        changeelemet.innerHTML = ""
+        let numbs = ["Bomb", "Bomb", "Bomb", "Bomb", "Bomb", "Bomb"];
+for (let i = 10; i <= 230; i += 10) {
+    console.log(i);
+    numbs.push(i);
+}
+console.log(numbs);
+
+function getRandomElement(arr, isRandom = true) {
+    if (arr.length === 0) {
+        return null;
+    }
+    if (isRandom) {
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        return arr[randomIndex];
+    } else {
+        return arr[0];
+    }
+}
+
+// Store the random result in a variable
+let result = getRandomElement(numbs);
+
+if (result === "Bomb") {
+    console.log("YOU GOT FUCKED");
+} else {
+    console.log("You got");
+    console.log(result);
+}
+
+changeelemet.innerHTML = result
+    </script>
+</body>
+</html>
