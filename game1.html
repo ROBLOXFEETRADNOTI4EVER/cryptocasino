@@ -12,6 +12,9 @@
         <input type="button" id="Btn" value="PlayGames">
         <input type="button" id="Btn" value="Issues">
         <hr style="color: dodgerblue;">
+        <h1 style="color: cyan;">Balance <a id="Balancedisplay"></a></h1>
+        <hr style="color: dodgerblue;">
+
     </div>
     <div class="tooltip-container">
         <h1 id="cookieBomber"><u>Cookie Bomber</u></h1>
@@ -115,44 +118,51 @@
         </button> -->
       </div>
       <script>
-      document.addEventListener("DOMContentLoaded", () => {
+        let balance = 0;
+
+        document.addEventListener("DOMContentLoaded", () => {
         let numbs = ["Bomb", "Bomb", "Bomb", "Bomb", "Bomb", "Bomb"];
         for (let i = 10; i <= 230; i += 10) {
-          numbs.push(i);
+        numbs.push(i);
         }
-      
-        // Function to get a random element and remove it from the array
+
         function getRandomElement(arr) {
-          if (arr.length === 0) {
-            return null; // No more elements to select
-          }
-          const randomIndex = Math.floor(Math.random() * arr.length);
-          const element = arr[randomIndex];
-          arr.splice(randomIndex, 1); // Remove the selected element from the array
-          return element;
+        if (arr.length === 0) {
+        return null;
         }
-      
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        const element = arr[randomIndex];
+        arr.splice(randomIndex, 1);
+        return element;
+        }
+
         const buttons = document.querySelectorAll(".Cokkiebtn");
-      
+
         buttons.forEach((button) => {
-          button.addEventListener("click", () => {
-            // Prevent multiple clicks on the same button
-            if (button.disabled) return;
-      
-            // Hide the button (cookie image)
-            button.style.backgroundImage = "none";
-            button.disabled = true; // Disable the button to prevent further clicks
-      
-            // Show the hidden text inside the button
-            const hiddenText = button.querySelector(".hiddenText");
-            if (hiddenText) {
-              let result = getRandomElement(numbs);
-              hiddenText.innerHTML = result !== null ? result : "No More Numbers!";
-              hiddenText.style.display = "block"; // Make the text visible
-            }
-          });
+        button.addEventListener("click", () => {
+        if (button.disabled) return;
+        button.style.backgroundImage = "none";
+        button.disabled = true;
+
+        const hiddenText = button.querySelector(".hiddenText");
+        if (hiddenText) {
+                let result = getRandomElement(numbs);
+                hiddenText.innerHTML = result !== null ? result : "No More Numbers!";
+                hiddenText.style.display = "block";
+
+                if (result === "Bomb") {
+                balance = 0;
+                document.getElementById("Balancedisplay").innerHTML = "You Lost!";
+                buttons.forEach((btn) => btn.disabled = true);
+                } else {
+                balance += result;
+                document.getElementById("Balancedisplay").innerHTML = balance;
+                                }
+                          }
+                         });
+                });
         });
-      });
+
       </script>
 </body>
 </html>
