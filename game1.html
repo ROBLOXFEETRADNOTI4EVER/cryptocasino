@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game1</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton+SC">
 </head>
 <body>
     <div style=" text-align: center;">
@@ -117,6 +118,9 @@
           <a class="hiddenText" id="Randomstuff" style="display: none; color: white; font-size: medium;">Revealed 30!</a>
         </button> -->
       </div>
+      <div class="Sexybtnrefreshgam1">
+      <button class="RefreshButtonGame1" id="RefreshButtonGame1" onclick="refreshTHepage()">Refresh</button>
+                </div>
       <script>
         let balance = 0;
 
@@ -163,6 +167,12 @@
                 });
         });
 
+      </script>
+      <script>
+        function refreshTHepage(){
+                console.log("Refresshed the page")
+                location.reload()
+                }
       </script>
 </body>
 </html>

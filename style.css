@@ -321,3 +321,38 @@ body {
 .Cokkiebtn:active{
     background-image: none;
 }
+
+.RefreshButtonGame1{
+    
+    transition: background-color 1s;
+    height: auto;
+    width: 5em;
+    border-radius: 20em;
+    border: none;
+    background: rgb(79,6,75);
+    background: radial-gradient(circle, rgba(79,6,75,1) 0%, rgba(173,0,255,1) 100%); 
+    font-family: "Anton SC", sans-serif;
+    font-size: 4rem;
+
+}
+
+
+
+.RefreshButtonGame1:hover{
+    
+    transition: background-color 1s;
+    height: auto;
+    width: 5em;
+    border-radius: 20em;
+    border: none;
+    background: rgb(19, 1, 18);
+    background: radial-gradient(circle, rgb(80, 0, 76) 0%, rgb(143, 21, 199) 100%); 
+    font-family: "Anton SC", sans-serif;
+    font-size: 4rem;
+
+
+}
+
+.Sexybtnrefreshgam1{
+    text-align: center;
+}
