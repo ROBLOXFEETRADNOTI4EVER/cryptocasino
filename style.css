@@ -353,6 +353,21 @@ body {
 
 }
 
+.RefreshButtonGame1:active{
+    
+    transition: background-color 1s;
+    height: auto;
+    width: 5em;
+    border-radius: 20em;
+    border: none;
+    background: rgb(19, 1, 18);
+    background: radial-gradient(circle, rgb(80, 16, 0) 0%, rgb(199, 33, 21) 100%); 
+    font-family: "Anton SC", sans-serif;
+    font-size: 4rem;
+
+
+}
+
 .Sexybtnrefreshgam1{
     text-align: center;
 }

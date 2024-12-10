@@ -19,8 +19,25 @@
     <h1 style="color: white; text-align: center;">Welcome <a id="usernameReal"></a></h1>
     
     <script>
-        // Retrieve the username from sessionStorage
-        const username = sessionStorage.getItem("username");
+        // Function to get a cookie by name
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Try to get the username from sessionStorage
+        let username = sessionStorage.getItem("username");
+
+        // If not found in sessionStorage, try to get it from cookies
+        if (!username) {
+            username = getCookie("username");
+        }
 
         // Display the username in the 'usernameReal' element
         if (username) {
