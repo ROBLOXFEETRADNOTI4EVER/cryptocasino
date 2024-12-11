@@ -221,3 +221,21 @@ With your daily commitment of 20 minutes to 2 hours of coding per day and 3 hour
 
 ### Conclusion:
 Based on your current schedule of 30 minutes to 1-2 hours per day, with a boost on weekends, you should be able to complete this project in approximately **6 to 10 months**, depending on your consistency and how quickly you pick up new concepts.
+
+
+
+### Creat a part in usermenu that says user and  say current price of btc and user money and when clicked it says it in usd and when clicked again it says in btc or current crypto  
+### also make it so it says the details in user profile thats in a div like user proifle craeted at etc
+### add a feture to make user delete their account 
+### add a feture to send an email to forgot password and to make it secure 
+### Make user so they can upload a pfp and change it 
+### Make it so a user has a username in casino that is random from a list and random numbs and mus be unique
+### creat a webprotal to deposit and withdraw crypto (also make it so it displays it in usd and crypto type) Cryptos: BTC, LTC, ETH;
+### Keep a record of transation histroy and make it so user can donwload it  
+
+## for forget password make it so it asks for a username or a email 
+
+### Make it responsive Learn responsivnes
+
+
+

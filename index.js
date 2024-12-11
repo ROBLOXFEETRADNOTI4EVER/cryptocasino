@@ -1,4 +1,4 @@
-// Function to set a cookie
+// funtion to set a cookie
 function setCookie(name, value, days) {
   let expires = "";
   if (days) {
@@ -9,11 +9,14 @@ function setCookie(name, value, days) {
   document.cookie = `${name}=${value || ""}${expires}; path=/`;
 }
 
+// track sregistartion atempts
+let registerAttempts = 0;
+
 document.querySelector("#submit").addEventListener("click", async (event) => {
   event.preventDefault();
 
-  let username = document.querySelector("#username").value;
-  let email = document.querySelector("#email").value;
+  let username = document.querySelector("#username").value.trim();
+  let email = document.querySelector("#email").value.trim();
   let password = document.querySelector("#password").value;
 
   const usernameRegex = /^[a-zA-Z0-9_-]{5,15}$/;
@@ -61,15 +64,56 @@ document.querySelector("#submit").addEventListener("click", async (event) => {
         alert("Registration successful!");
         sessionStorage.setItem("username", username);
         
-        // Set a cookie to remember the user
-        setCookie("username", username, 7); // Cookie valid for 7 days
+        // setting a cokuee to remebr user for 7 days
+        setCookie("username", username, 7);
         
         window.location.href = "login.html";
       } else {
-        alert(data.error || "Registration failed.");
+        // registatton failed atemp
+        registerAttempts++;
+        
+        // If 3 or more msg show purprle nigga on top
+        if (registerAttempts >= 3) {
+          let purpleMsg = document.createElement("p");
+          purpleMsg.style.color = "#9b59b6";
+          purpleMsg.style.font = "monospace";
+          purpleMsg.style.cursor = "pointer";
+          purpleMsg.textContent = "Too many failed registration attempts. Would you like to login instead? Click here.";
+          purpleMsg.addEventListener("click", function() {
+            window.location.href = "login.html";
+          });
+          errorContainer.appendChild(purpleMsg);
+        }
+
+        // showing the red errr msg under the purple clcible msg
+        let errorMsg = document.createElement("p");
+        errorMsg.style.color = "red";
+        errorMsg.style.font = "monospace";
+        errorMsg.textContent = data.error || "Registration failed.";
+        errorContainer.appendChild(errorMsg);
       }
     } catch (error) {
       console.error("Error:", error);
+      // this also countds as a failed attmept
+      registerAttempts++;
+
+      if (registerAttempts >= 3) {
+        let purpleMsg = document.createElement("p");
+        purpleMsg.style.color = "#9b59b6";
+        purpleMsg.style.font = "monospace";
+        purpleMsg.style.cursor = "pointer";
+        purpleMsg.textContent = "Too many failed attempts. Would you like to login instead? Click here.";
+        purpleMsg.addEventListener("click", function() {
+          window.location.href = "login.html";
+        });
+        errorContainer.appendChild(purpleMsg);
+      }
+
+      let errorMsg = document.createElement("p");
+      errorMsg.style.color = "red";
+      errorMsg.style.font = "monospace";
+      errorMsg.textContent = "An error occurred. Please try again later.";
+      errorContainer.appendChild(errorMsg);
     }
   }
 });

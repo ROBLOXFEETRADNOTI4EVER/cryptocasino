@@ -1,4 +1,4 @@
-// Function to set a cookie
+// function to aet a cokie
 function setCookie(name, value, days) {
   let expires = "";
   if (days) {
@@ -9,62 +9,60 @@ function setCookie(name, value, days) {
   document.cookie = `${name}=${value || ""}${expires}; path=/`;
 }
 
+// Trackk login attemps
+let loginAttempts = 0;
+
 document.querySelector("#submit").addEventListener("click", async (event) => {
   event.preventDefault();
 
-  let username = document.querySelector("#username").value;
-  let email = document.querySelector("#email").value;
+  let username = document.querySelector("#username").value.trim();
+  let email = document.querySelector("#email").value.trim();
   let password = document.querySelector("#password").value;
 
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const usernameRegex = /^[a-zA-Z0-9_-]{5,15}$/;
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d@$!%*?&]{8,16}$/;
+
   let errorContainer = document.querySelector("#errorMessages");
 
-  // Create error container if it doesn't exist
   if (!errorContainer) {
     errorContainer = document.createElement("div");
     errorContainer.id = "errorMessages";
     document.querySelector("#submit").parentElement.appendChild(errorContainer);
   } else {
-    errorContainer.innerHTML = ""; // Clear previous error messages
+    errorContainer.innerHTML = "";
   }
 
   let errors = [];
   let isFormValid = true;
 
-  // Validate email format
   if (!emailRegex.test(email)) {
     errors.push("Please enter a valid email address.");
     isFormValid = false;
   }
 
-  // Validate username (ensure it matches the specified regex)
-  const usernameRegex = /^[a-zA-Z0-9_-]{5,15}$/;
   if (!usernameRegex.test(username)) {
     errors.push("Username must be 5-15 characters long and only contain letters, numbers, underscores, or hyphens.");
     isFormValid = false;
   }
 
-  // Validate password format (including minimum length, special characters, etc.)
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d@$!%*?&]{8,16}$/;
   if (!passwordRegex.test(password)) {
-    errors.push("Password must be 8-16 characters, including both letters and numbers, with at least one uppercase letter and one symbol.");
+    errors.push("Password must meet complexity requirements.");
     isFormValid = false;
   }
 
-  // Display validation errors if the form is invalid
   if (!isFormValid) {
-    errors.forEach(function (error) {
+    errors.forEach((error) => {
       let errorMsg = document.createElement("p");
       errorMsg.style.color = "red";
       errorMsg.style.font = "monospace";
       errorMsg.textContent = error;
       errorContainer.appendChild(errorMsg);
     });
-    return; // Stop further processing if the form is invalid
+    return;
   }
 
   try {
-    // Send login request to the backend
     const response = await fetch("http://localhost:4002/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -75,34 +73,52 @@ document.querySelector("#submit").addEventListener("click", async (event) => {
 
     if (response.ok) {
       alert("Login successful!");
+      loginAttempts = 0;
 
-      // Store username in sessionStorage
+      // store username and suredi
       sessionStorage.setItem("username", data.username);
+      sessionStorage.setItem("userId", data.userId);
 
-      // Set a cookie to remember the user for 7 days
       setCookie("username", data.username, 7);
 
-      // Redirect to another page after successful login
       window.location.href = "succesregister.html";
     } else {
-      // Handle backend errors and display appropriate messages
-      if (data.error) {
-        if (data.error.includes("Invalid username or email")) {
-          document.querySelector("#username").style.borderColor = "red";
-          document.querySelector("#email").style.borderColor = "red";
-        } else if (data.error.includes("Invalid password")) {
-          document.querySelector("#password").style.borderColor = "red";
-        }
+      loginAttempts++;
 
-        let errorMsg = document.createElement("p");
-        errorMsg.style.color = "red";
-        errorMsg.style.font = "monospace";
-        errorMsg.textContent = data.error || "Invalid credentials.";
-        errorContainer.appendChild(errorMsg);
+      if (loginAttempts >= 3) {
+        let purpleMsg = document.createElement("p");
+        purpleMsg.style.color = "#9b59b6";
+        purpleMsg.style.font = "monospace";
+        purpleMsg.style.cursor = "pointer";
+        purpleMsg.textContent = "Too many failed attempts. Would you like to register instead? Click here.";
+        purpleMsg.addEventListener("click", function() {
+          window.location.href = "index.html"; 
+        });
+        errorContainer.appendChild(purpleMsg);
       }
+
+      let errorMsg = document.createElement("p");
+      errorMsg.style.color = "red";
+      errorMsg.style.font = "monospace";
+      errorMsg.textContent = data.error || "Invalid credentials.";
+      errorContainer.appendChild(errorMsg);
     }
   } catch (error) {
     console.error("Error:", error);
+    loginAttempts++;
+
+    if (loginAttempts >= 3) {
+      let purpleMsg = document.createElement("p");
+      purpleMsg.style.color = "#9b59b6";
+      purpleMsg.style.font = "monospace";
+      purpleMsg.style.cursor = "pointer";
+      purpleMsg.textContent = "Too many failed attempts. Would you like to register instead? Click here.";
+      purpleMsg.addEventListener("click", function() {
+        window.location.href = "register.html";
+      });
+      errorContainer.appendChild(purpleMsg);
+    }
+
     let errorMsg = document.createElement("p");
     errorMsg.style.color = "red";
     errorMsg.style.font = "monospace";
