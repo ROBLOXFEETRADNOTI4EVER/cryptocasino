@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adjusted Profile Div</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="crypto.css">
     <link rel="shortcut icon" href="images/logo/noBackground/Untitled_2_-removebg-preview.png" type="image/png">
     <style>
         body {
@@ -50,6 +51,21 @@
             margin-top: 10px;
         }
 
+        #stats{
+            justify-content: center;
+            align-items: center;
+            background: rgba(145, 145, 145, 0.048);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 20px; 
+            border-radius: 10px;
+            width: 90%; 
+            text-align: center;
+            background: linear-gradient(45deg, #2e2e2e 0%, #aa6f6f73 100%);
+            animation: gradient 10s ease-in-out both;
+            background-size: 400%; 
+            margin: 30px 0 0 20px; 
+            font-size: 1em; 
+        }
         #userProfile {
             justify-content: center;
             align-items: center;
@@ -60,7 +76,7 @@
             width: 450px; 
             text-align: center;
             background: linear-gradient(45deg, #2e2e2e 0%, #aa6f6f73 100%);
-            animation: gradient 10s ease-in-out infinite;
+            animation: gradient 10s ease-in-out both;
             background-size: 400%; 
             margin: 30px 0 0 20px; 
             font-size: 1em; 
@@ -104,6 +120,13 @@
             margin-top: 20px; 
         }
 
+        #Balance2Guisnexttoteachother{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px; 
+            margin-top: 20px; 
+        }
         #Balancestuffinsidediv, 
         #Balancestuffinsidediv1 {
             justify-content: center;
@@ -161,11 +184,109 @@
         #displayAccountRegisteredMsg {
             color: #2e2e2e;
         }
+
+        /* Continuous Crypto Ticker Styles */
+        .stock-ticker {
+            overflow: hidden;
+            background: #1c1c1c;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            position: relative;
+            height: 20px;
+            white-space: nowrap;
+        }
+
+        .ticker-inner {
+            display: inline-block;
+            width: 200%; /* Two sets side by side */
+            animation: scroll-left 30s linear infinite;
+            box-sizing: border-box;
+        }
+
+        .ticker-set {
+            display: inline-block;
+            width: 50%;
+        }
+
+        .crypto-item {
+            display: inline-block;
+            margin: 0 40px;
+            font-size: 1.1em;
+        }
+
+        .company {
+            color: #08b5cc;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .price {
+            color: #fff;
+            margin-right: 5px;
+        }
+
+        .change {
+            color: #ff4d4d;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        #allUsers{
+            justify-content: center;
+            align-items: center;
+            background: rgba(145, 145, 145, 0.048);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 15px; 
+            border-radius: 10px;
+            width: 12em; 
+            text-align: center;
+            background: linear-gradient(45deg, #2e2e2e 0%, #aa6f6f73 100%);
+            animation: gradient 10s ease-in-out infinite;
+            background-size: 400%;
+            font-size: 1em; 
+        }
+        #ourwallet{
+            justify-content: center;
+            align-items: center;
+            background: rgba(145, 145, 145, 0.048);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 15px; 
+            border-radius: 10px;
+            width: 12em; 
+            text-align: center;
+            background: linear-gradient(45deg, #2e2e2e 0%, #aa6f6f73 100%);
+            animation: gradient 10s ease-in-out infinite;
+            background-size: 400%;
+            font-size: 1em; 
+        }
+        #MyWallet{
+            margin-top: 5%;
+            margin-left: 15%;
+            justify-content: center;
+            align-items: center;
+            background: rgba(145, 145, 145, 0.048);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 15px; 
+            border-radius: 10px;
+            width: 12em; 
+            height: 10em;
+            text-align: center;
+            background: linear-gradient(45deg, #2e2e2e 0%, #aa6f6f73 100%);
+            animation: gradient 10s ease-in-out infinite;
+            background-size: 400%;
+            font-size: 1em; 
+        }
+        #secoundndGuiBtn{
+            border: none;
+            font-size: large;
+        }
     </style>
 </head>
 <body>
     <div id="Logo">
-        <img src="images/logo/Untitled(1).png" alt="Logo" id="lLogo" draggable="false">
+        <img src="images/Untitled(1).png" alt="Logo" id="lLogo" draggable="false">
         <input type="button" id="Btn" value="HomePage">
         <input type="button" id="Btn" value="PlayGames">
         <input type="button" id="Btn" value="FAQ">
@@ -174,11 +295,19 @@
     
 
     <hr>
-
+    <div class="stock-ticker">
+        <div class="ticker-inner">
+            <div class="ticker-set" id="tickerSet1"></div>
+            <div class="ticker-set" id="tickerSet2"></div>
+        </div>
+    </div>
+    <hr>
+    <div id="Balance2Guisnexttoteachother">
     <div id="userProfile">
         <img id="userPfp" src="images/userDefaultPfp.png">
         <br>
-        <h1>Welcome <a id="usernameReal"></a><a style="color: #2e2e2e;">User</a></h1>
+        <h1>Welcome <a id="usernameReal" style="color: #08b5cc"></a></h1>
+
         <button id="proficepicturechangbtn" onclick="document.getElementById('pfpInput').click();">Change Profile Picture</button>
         <input type="file" id="pfpInput" accept="image/*">
         <p id="errorUploadMessage"></p>
@@ -204,7 +333,79 @@
         </div>
     </div>
 
+    <div id="stats">
+        <div id="balanceContainer">
+        <div id="allUsers">
+            <a>Total Users: <a id="Tottalusers"></a> </a> <!--Number of users goes here-->
+        </div>
+        <div id="ourwallet">
+            <a>Users Online Today:<a id="UsersOnlineToday"></a> </a> <!--Number of users goes here-->
+        </div>
+        
+        <div id="ourwallet">
+            <a>Daily Profit: <a id="DailyRevenue"></a> </a> <!--Number of users goes here so i need to calc later if its a + or a - -->
+        </div>
+    </div>
+    <div id="MyWallet">
+        <a>Money In my wallet: <a id="MoneyInWallet"></a> </a><br> <!--Number of users goes here i check how much i have in my wallet with an api for each and in crypto and display them on each in crypto and usd and add them up together in usd-->
+        ALL = 524.86 $USD<br>
+        LTC = 0,7 = 120,03 $USD<br>
+        BTC = 0,00123 = 122,83 $USD<br>
+        ETH = 0,455 = 141 $USD<br>
+
+    </div>
+    </div>
+</div>
     <script>
+    
+
+    </script>
+    <script>
+        // Free API: CoinGecko public API for real-time crypto prices
+        const coins = ['bitcoin', 'ethereum', 'litecoin', 'dogecoin',  'binancecoin']; // More coins added
+        const tickerSet1 = document.getElementById('tickerSet1');
+        const tickerSet2 = document.getElementById('tickerSet2');
+    
+        let userCreatedAt = null; // Will store the user's account creation date
+    
+        async function fetchCryptoData() {
+            try {
+                const ids = coins.join('%2C');
+                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+                const response = await fetch(url);
+                const data = await response.json();
+    
+                // Build the items HTML
+                let itemsHTML = '';
+                coins.forEach(coin => {
+                    const price = data[coin].usd.toFixed(2);
+                    const change = data[coin].usd_24h_change.toFixed(2);
+                    const sign = change >= 0 ? '+' : '';
+                    const changeColor = change >= 0 ? '#00ff00' : '#ff4d4d';
+    
+                    itemsHTML += `
+                        <span class="crypto-item">
+                            <span class="company">${coin.charAt(0).toUpperCase() + coin.slice(1)}</span>
+                            <span class="price">$${price}</span>
+                            <span class="change" style="color:${changeColor}">${sign}${change}%</span>
+                        </span>&nbsp;
+                    `;
+                });
+    
+                // Set both sets with the same items
+                tickerSet1.innerHTML = itemsHTML;
+                tickerSet2.innerHTML = itemsHTML;
+    
+            } catch (error) {
+                console.error('Error fetching crypto data:', error);
+            }
+        }
+    
+        // Initial fetch
+        fetchCryptoData();
+        // Update every 60 seconds
+        setInterval(fetchCryptoData, 60000);
+    
         function getCookie(name) {
             let nameEQ = name + "=";
             let ca = document.cookie.split(';');
@@ -214,54 +415,75 @@
             }
             return null;
         }
-
+    
         let username = sessionStorage.getItem("username");
         let userId = sessionStorage.getItem("userId");
-
+    
         if (!username) {
             username = getCookie("username");
         }
-
+    
         if (!userId) {
             console.error("User ID not found. Make sure you store userId at login.");
         }
-
+    
         if (username) {
             document.getElementById("usernameReal").textContent = username;
         } else {
             window.location.href = "login.html";
         }
-
+    
         if (userId) {
-          fetch(`http://localhost:4002/api/user/${userId}`)
-            .then(res => res.json())
-            .then(data => {
-              if (data.profilePicture) {
-                document.getElementById('userPfp').src = `http://localhost:4002/${data.profilePicture}`;
-              }
-              if (data.createdAt) {
-                let createdAt = new Date(data.createdAt);
-                let diff = Date.now() - createdAt.getTime();
-                let timeString = formatTimeDiff(diff);
-                document.getElementById('displayAccountRegisteredMsg').textContent = timeString + " ago";
-              }
-            })
-            .catch(err => console.error("Error fetching user info:", err));
-        }
+  fetch(`http://localhost:4002/api/user/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log('Fetched user data:', data);
+      
+      if (data.profilePicture) {
+        document.getElementById('userPfp').src = `http://localhost:4002/${data.profilePicture}`;
+      }
+      
+      if (data.username) {
+        document.getElementById('usernameReal').textContent = data.username;
+      }
+      
+      if (data.rank) {
+        const rankElement = document.createElement('a');
+        rankElement.style.color = '#646464';
+        rankElement.textContent = ` [${data.rank}]`;
+        document.getElementById('usernameReal').after(rankElement);
+        if(data.rank === "Admin"){
+            rankElement.style.color = '#ff00f2';
+            rankElement.style.fontFamily = "monospace";
+            rankElement.style.fontSize = "1.5em"
+            document.getElementById('usernameReal').after(rankElement);
 
+
+        }
+      }
+      
+      if (data.createdAt) {
+        userCreatedAt = new Date(data.createdAt);
+        updateAccountRegisteredTime(); // Update once immediately
+        setInterval(updateAccountRegisteredTime, 60000); // Update "Account registered" every 60 seconds
+      }
+    })
+    .catch(err => console.error("Error fetching user info:", err));
+}
+    
         const pfpInput = document.getElementById('pfpInput');
         const userPfp = document.getElementById('userPfp');
         const errorUploadMessage = document.getElementById('errorUploadMessage');
-
+    
         pfpInput.addEventListener('change', function() {
             const file = this.files[0];
             if (!file) return;
-
+    
             const oldSrc = userPfp.src;
             const formData = new FormData();
             formData.append('profilePicture', file);
             formData.append('userId', userId);
-
+    
             fetch('http://localhost:4002/upload', {
                 method: 'POST',
                 body: formData
@@ -269,18 +491,18 @@
             .then(async response => {
                 const text = await response.text();
                 if (response.ok) {
-                  const reader = new FileReader();
-                  reader.addEventListener('load', function() {
-                    userPfp.src = reader.result;
-                  });
-                  reader.readAsDataURL(file);
-                  errorUploadMessage.textContent = "";
-                } else {
-                  userPfp.src = oldSrc;
-                  errorUploadMessage.textContent = text || "File upload failed.";
-                  setTimeout(() => {
+                    const reader = new FileReader();
+                    reader.addEventListener('load', function() {
+                        userPfp.src = reader.result;
+                    });
+                    reader.readAsDataURL(file);
                     errorUploadMessage.textContent = "";
-                  }, 3000);
+                } else {
+                    userPfp.src = oldSrc;
+                    errorUploadMessage.textContent = text || "File upload failed.";
+                    setTimeout(() => {
+                        errorUploadMessage.textContent = "";
+                    }, 3000);
                 }
             })
             .catch(error => {
@@ -288,24 +510,24 @@
                 userPfp.src = oldSrc;
                 errorUploadMessage.textContent = "An error occurred while uploading.";
                 setTimeout(() => {
-                  errorUploadMessage.textContent = "";
+                    errorUploadMessage.textContent = "";
                 }, 3000);
             });
         });
-
+    
         function logout() {
             sessionStorage.removeItem("username");
             sessionStorage.removeItem("userId");
             document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             window.location.href = "login.html";
         }
-
+    
         function formatTimeDiff(ms) {
             let minutes = Math.floor(ms / 60000);
             let hours = Math.floor(minutes / 60);
             let days = Math.floor(hours / 24);
             let months = Math.floor(days / 30);
-
+    
             if (minutes < 60) {
                 return minutes <= 1 ? minutes + " minute" : minutes + " minutes";
             } else if (hours < 24) {
@@ -323,6 +545,15 @@
                 }
             }
         }
+    
+        function updateAccountRegisteredTime() {
+            if (!userCreatedAt) return;
+            let diff = Date.now() - userCreatedAt.getTime();
+            let timeString = formatTimeDiff(diff);
+            document.getElementById('displayAccountRegisteredMsg').textContent = timeString;
+        }
     </script>
+    
+
 </body>
 </html>

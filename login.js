@@ -92,7 +92,7 @@ document.querySelector("#submit").addEventListener("click", async (event) => {
         purpleMsg.style.cursor = "pointer";
         purpleMsg.textContent = "Too many failed attempts. Would you like to register instead? Click here.";
         purpleMsg.addEventListener("click", function() {
-          window.location.href = "index.html"; 
+          window.location.href = "register.html"; 
         });
         errorContainer.appendChild(purpleMsg);
       }
