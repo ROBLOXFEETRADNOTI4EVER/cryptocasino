@@ -41,6 +41,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
       litecoinAdress: { type: String, unique: true ,default: "No adress generated"},
     userWarnings: { type: Number, default: 0},
     transactionHistory: {type: String, default: "No transactions"},
+    lastLogin: { type: Date, default: null }, 
     profilePicture: String,
     createdAt: { type: Date, default: Date.now }
   });
@@ -170,28 +171,39 @@ app.post("/api/auth/register", async (req, res) => {
 app.post("/api/auth/login", async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    const user = await User.findOne({ username, email });
-    if (!user) return res.status(400).json({ error: "Invalid username or email" });
+      const user = await User.findOne({ username, email });
+      if (!user) return res.status(400).json({ error: "Invalid username or email" });
 
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
-    if (!isPasswordMatch) return res.status(400).json({ error: "Invalid password" });
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
+      if (!isPasswordMatch) return res.status(400).json({ error: "Invalid password" });
 
-    res.status(200).json({ message: "Login successful", username: user.username, userId: user._id });
+      // Update lastLogin timestamp
+      user.lastLogin = new Date();
+      await user.save();
+
+      res.status(200).json({ message: "Login successful", username: user.username, userId: user._id });
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+      console.error("Login error:", error);
+      res.status(500).json({ error: "Server error" });
   }
 });
 
 app.get("/api/user/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id, 'username profilePicture rank');
+    const user = await User.findById(req.params.id, 'username profilePicture rank createdAt');
     if (!user) return res.status(404).json({ error: "User not found" });
-    res.json({ username: user.username, profilePicture: user.profilePicture, rank: user.rank });
+    res.json({ 
+      username: user.username, 
+      profilePicture: user.profilePicture, 
+      rank: user.rank, 
+      createdAt: user.createdAt 
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 
 const storage = multer.diskStorage({
@@ -239,6 +251,11 @@ app.post("/upload", upload.single('profilePicture'), async (req, res) => {
 });
 
 app.use("/uploads", express.static("uploads"));
+
+
+app.post("/api/auth/DisplayUserCryptoAdresses", async (req, res) =>{
+
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

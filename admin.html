@@ -718,6 +718,41 @@ console.error("Error updating stats:", error);
 
 </script>
 
+<script>
+    if (userId) {
+  fetch(`http://localhost:4002/api/user/${userId}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log('Fetched user data:', data);
+
+      if (data.profilePicture) {
+        document.getElementById('userPfp').src = `http://localhost:4002/${data.profilePicture}`;
+      }
+
+      if (data.username) {
+        // document.getElementById('usernameReal').textContent = data.username;
+      }
+
+      if (data.rank) {
+        const rankElement = document.createElement('a');
+        rankElement.style.color = '#646464';
+        rankElement.textContent = ` [${data.rank}]`;
+        // document.getElementById('usernameReal').after(rankElement);
+        if (data.rank === "Admin") {
+          rankElement.style.color = '#ff00f2';
+          rankElement.style.fontFamily = "monospace";
+          rankElement.style.fontSize = "1.5em";
+        }
+      }
+
+      if (data.createdAt) {
+        const userCreatedAt = new Date(data.createdAt);
+        updateAccountRegisteredTime(userCreatedAt); // Pass createdAt date for calculation
+      }
+    })
+    .catch(err => console.error("Error fetching user info:", err));
+}
+</script>
 
 </body>
 </html>

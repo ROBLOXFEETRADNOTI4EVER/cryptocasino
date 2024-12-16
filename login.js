@@ -72,7 +72,7 @@ document.querySelector("#submit").addEventListener("click", async (event) => {
     const data = await response.json();
 
     if (response.ok) {
-      alert("Login successful!");
+      // alert("Login successful!");
       loginAttempts = 0;
 
       // store username and suredi

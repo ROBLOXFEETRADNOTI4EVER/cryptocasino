@@ -464,6 +464,23 @@
     color: orange;
 }
 
+#Transaction-History{
+    justify-content: center;
+            align-items: center;
+            background: rgba(145, 145, 145, 0.048);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 20px; 
+            border-radius: 10px;
+            width: 85%;
+            /* height: 9em;  */
+            text-align: center;
+            background: linear-gradient(45deg, #2e2e2e 0%, #aa6f6f73 100%);
+            animation: gradient 10s ease-in-out both;
+            background-size: 400%; 
+            margin: 30px 0 0 20px; 
+            font-size: 1em; 
+}
+
     </style>
 </head>
 <body>
@@ -480,6 +497,7 @@
         <input type="button" id="Btn" value="FAQ">
         <input type="button" id="Btn" value="User">
     </div>
+    <hr>
     <div class="stock-ticker" style="position: sticky;">
         <div class="ticker-inner">
             <div class="ticker-set" id="tickerSet1"></div>
@@ -487,9 +505,11 @@
         </div>
     
 
+    
     <hr>
     </div>
     <hr>
+    
     <div id="groupeverything-together">
     <div id="userProfile">
         <img id="userPfp" src="images/userDefaultPfp.png">
@@ -515,6 +535,9 @@
                 </p>
             </div>
         </div>
+        <div id="Transaction-History">
+            <span style="text-align: center;">Transaction-History</span>
+        </div>
         
         <div id="logoutContainer">
             <button id="logoutBtn" onclick="logout()">Logout</button>
@@ -536,22 +559,71 @@
             
                     </div>
         <div id="HoldCrypto">
-            <h1><b>YOUR  <a style="color: orange;">BTC</a> ADRESS IS: <a id="Adress" style="color: orange;">bkerukfbe83mvk39283bb29c10n8</a><br></b>
-                <a>Money inside BTC wallet: <a id="Btcinsidewallet" style="color: greenyellow;">0.000487294</a> </a></h1>
+            <h1><span style="user-select: none;"><b>YOUR  <a style="color: orange;">BTC</a> ADRESS IS:</span> <a id="Adress" style="color: orange;"><button style="border: none; background: none; font-size: large; font-weight: bold;" onclick="CopyCrypto('btc')"><span id="copybtc4real">btcrukfbe83mvk39283bb29c10n8</span></a><br></b></button><br>
+                <span style="user-select: none;"><a>Money inside BTC wallet: <a id="Btcinsidewallet" style="color: greenyellow;">0.000487294</a></span> </a></h1>
         </div>
         <div id="HoldCrypto">
-        <h1><b>YOUR  <a style="color: rgb(47, 255, 210);">LTC</a> ADRESS IS: <a id="Adress" style="color: rgb(90, 168, 149);">bkerukfbe83mvk39283bb29c10n8</a><br></b>
-            <a>Money inside LTC wallet: <a id="Btcinsidewallet" style="color: rgb(47, 255, 210);">0.000487294</a> </a></h1>
+        <h1><span style="user-select: none;"><b>YOUR  <a style="color: rgb(47, 255, 210);">LTC</a> ADRESS IS:</span> <a id="Adress" style="color: rgb(90, 168, 149);"><button style="border: none; background: none; font-size: large; font-weight: bold;" onclick="CopyCrypto('ltc')"><span id="copyltc4real">ltcrukfbe83mvk39283bb29c10n8</span></a></button><br></b>
+            <span style="user-select: none;"> <a>Money inside LTC wallet: <a id="Btcinsidewallet" style="color: rgb(47, 255, 210);">0.000487294</a> </a></h1></span>
         </div>
         <div id="HoldCrypto">    
-        <h1><b>YOUR  <a style="color: #8a8a8a;">ETH</a> ADRESS IS: <a id="Adress" style="color: #8a8a8a;">bkerukfbe83mvk39283bb29c10n8</a><br></b>
-                <a>Money inside ETH wallet: <a id="Btcinsidewallet" style="color: rgb(248, 47, 255);">0.000487294</a> </a></h1>
+        <h1><span style="user-select: none;"><b>YOUR  <a style="color: #8a8a8a;">ETH</a> ADRESS IS:</span> <a id="Adress" style="color: #8a8a8a;"><button style="border: none; background: none; font-size: large; font-weight: bold;" onclick="CopyCrypto('eth')"><span id="copyeth4real">ethrukfbe83mvk39283bb29c10n8</span></a><br></b></button><br>
+            <span style="user-select: none;"> <a>Money inside ETH wallet: <a id="Btcinsidewallet" style="color: rgb(248, 47, 255);">0.000487294</a> </a></h1></span>
                     </div>
             </div>
 
 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all divs with id 'HoldCrypto'
+    const cryptoDivs = document.querySelectorAll('#HoldCrypto');
+    
+    cryptoDivs.forEach(function(div) {
+        // Change cursor to pointer to indicate the div is clickable
+        div.style.cursor = 'pointer';
+        
+        // Add click event listener to each div
+        div.addEventListener('click', function(event) {
+            // Prevent the click event from triggering child elements (like buttons)
+            if (event.target.tagName.toLowerCase() === 'button' || event.target.tagName.toLowerCase() === 'a') {
+                return;
+            }
 
+            let copyText = '';
+            let type = '';
+
+            // Determine which cryptocurrency address is within the clicked div
+            const btcSpan = div.querySelector('#copybtc4real');
+            const ltcSpan = div.querySelector('#copyltc4real');
+            const ethSpan = div.querySelector('#copyeth4real');
+
+            if (btcSpan) {
+                copyText = btcSpan.innerText.trim();
+                type = 'BTC';
+            } else if (ltcSpan) {
+                copyText = ltcSpan.innerText.trim();
+                type = 'LTC';
+            } else if (ethSpan) {
+                copyText = ethSpan.innerText.trim();
+                type = 'ETH';
+            } else {
+                console.error('No cryptocurrency address found in the clicked div.');
+                return;
+            }
+
+            // Copy the address to the clipboard using the Clipboard API
+            navigator.clipboard.writeText(copyText).then(function() {
+                // Optional: Provide feedback to the user
+                // alert(`${type} address copied to clipboard!`);
+            }).catch(function(err) {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    });
+});
+
+</script>
 
 </div>
     <script>
