@@ -253,9 +253,55 @@ app.post("/upload", upload.single('profilePicture'), async (req, res) => {
 app.use("/uploads", express.static("uploads"));
 
 
-app.post("/api/auth/DisplayUserCryptoAdresses", async (req, res) =>{
+app.post("/api/auth/DisplayUserCryptoAdresses", async (req, res) => {
+  try {
+    const { userId, bitcoinAdress, litecoinAdress, etheriumAdress,bitcoinnumb,litecoinNumb,etheriumnumb } = req.body;
 
+    // valide usre input
+    if (!userId) return res.status(400).json({ error: "User ID is required" });
+
+    // finding the usre
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    // Update the addresses only if provided
+    if (bitcoinAdress) user.bitcoinAdress = bitcoinAdress;
+    if (bitcoinnumb) user.butcoinnumb = bitcoinnumb;
+
+    if (litecoinAdress) user.litecoinAdress = litecoinAdress;
+    if (litecoinNumb) user.litecoinNumb = litecoinNumb;
+
+    if (etheriumAdress) user.etheriumAdress = etheriumAdress;
+    if (etheriumAdress) user.etheriumAdress = etheriumAdress;
+
+    // saving the updates 
+    await user.save();
+
+    // sending back the messsages
+    res.status(200).json({
+      message: "Crypto addresses updated successfully",
+      bitcoinAdress: user.bitcoinAdress,
+        bitcoinnumb: user.bitcoinnumb,
+      litecoinAdress: user.litecoinAdress,
+        litecoinNumb: user.litecoinNumb,
+      etheriumAdress: user.etheriumAdress,
+      etheriumnumb: user.etheriumnumb,
+
+    });
+  } catch (error) {
+    console.error("Error updating crypto addresses:", error);
+    res.status(500).json({ error: "Server error" });
+  }
 });
+
+
+app.post("/api/security", async (req, res) =>{
+  let randomnumb = Math.floor(Math.random() * (9999999999 - 1000000000) + 1000000000);
+  res.json({  
+    randomnumb: randomnumb
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

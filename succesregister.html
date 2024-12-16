@@ -481,10 +481,113 @@
             font-size: 1em; 
 }
 
+
+
     </style>
-</head>
+
+<style>
+
+.toast-container::before{
+    transition: opacity 0.5s ease, transform 0.5s ease; 
+
+}
+.toast-container {
+    position: fixed;
+    top: 20px; 
+    right: 20px; 
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+    max-height: calc(100vh - 40px); 
+    overflow: hidden; 
+    z-index: 1000;
+    transition: opacity 0.5s ease, transform 0.5s ease; 
+}
+
+.toast {
+    padding: 15px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 6px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+    font-size: 16px;
+    opacity: 1;
+    transform: translateY(0); 
+    transition: opacity 0.5s ease, transform 0.5s ease; 
+}
+
+.toast.fade-out {
+    opacity: 0; 
+    transform: translateY(-20px); 
+}
+
+
+
+
+</style>
+<div id="toastContainer" class="toast-container"></div>
 <body>
-    <script>
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+    const toastContainer = document.getElementById('toastContainer');
+
+    function showPopup(type, message, color) {
+        const popup = document.createElement('div');
+        popup.classList.add('toast'); 
+
+        popup.innerHTML = `<span style="color: ${color}; font-weight: bold;">${type}</span> ${message}`;
+
+        toastContainer.appendChild(popup); 
+        setTimeout(() => {
+            popup.classList.add('fade-out');
+            popup.addEventListener('transitionend', () => popup.remove());
+        }, 4000);
+    }
+    const cryptoDivs = document.querySelectorAll('#HoldCrypto');
+
+    cryptoDivs.forEach(function (div) {
+        div.style.cursor = 'pointer';
+
+        div.addEventListener('click', function (event) {
+            if (event.target.tagName.toLowerCase() === 'button' || event.target.tagName.toLowerCase() === 'a') {
+                return;
+            }
+
+            let copyText = '';
+            let type = '';
+            let color = '';
+
+            const btcSpan = div.querySelector('#copybtc4real');
+            const ltcSpan = div.querySelector('#copyltc4real');
+            const ethSpan = div.querySelector('#copyeth4real');
+
+            if (btcSpan) {
+                copyText = btcSpan.innerText.trim();
+                type = 'BTC';
+                color = 'orange';
+            } else if (ltcSpan) {
+                copyText = ltcSpan.innerText.trim();
+                type = 'LTC';
+                color = 'lightblue';
+            } else if (ethSpan) {
+                copyText = ethSpan.innerText.trim();
+                type = 'ETH';
+                color = 'gray';
+            } else {
+                console.error('No cryptocurrency address found in the clicked div.');
+                return;
+            }
+
+            navigator.clipboard.writeText(copyText).then(function () {
+                showPopup(type, 'Copied!', color);
+            }).catch(function (err) {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    });
+});
+
+
         
     </script>
     <script>
@@ -560,70 +663,21 @@
                     </div>
         <div id="HoldCrypto">
             <h1><span style="user-select: none;"><b>YOUR  <a style="color: orange;">BTC</a> ADRESS IS:</span> <a id="Adress" style="color: orange;"><button style="border: none; background: none; font-size: large; font-weight: bold;" onclick="CopyCrypto('btc')"><span id="copybtc4real">btcrukfbe83mvk39283bb29c10n8</span></a><br></b></button><br>
-                <span style="user-select: none;"><a>Money inside BTC wallet: <a id="Btcinsidewallet" style="color: greenyellow;">0.000487294</a></span> </a></h1>
+                <span style="user-select: none;"><a>Money inside BTC wallet: <a id="Btcinsidewallet" style="color: greenyellow;"><span id="btckillmyself"> 0.000487294</span></a></span> </a></h1>
         </div>
         <div id="HoldCrypto">
         <h1><span style="user-select: none;"><b>YOUR  <a style="color: rgb(47, 255, 210);">LTC</a> ADRESS IS:</span> <a id="Adress" style="color: rgb(90, 168, 149);"><button style="border: none; background: none; font-size: large; font-weight: bold;" onclick="CopyCrypto('ltc')"><span id="copyltc4real">ltcrukfbe83mvk39283bb29c10n8</span></a></button><br></b>
-            <span style="user-select: none;"> <a>Money inside LTC wallet: <a id="Btcinsidewallet" style="color: rgb(47, 255, 210);">0.000487294</a> </a></h1></span>
+            <span style="user-select: none;"> <a>Money inside LTC wallet: <a id="Ltcinsidewallet" style="color: rgb(47, 255, 210);">0.000487294</a> </a></h1></span>
         </div>
         <div id="HoldCrypto">    
         <h1><span style="user-select: none;"><b>YOUR  <a style="color: #8a8a8a;">ETH</a> ADRESS IS:</span> <a id="Adress" style="color: #8a8a8a;"><button style="border: none; background: none; font-size: large; font-weight: bold;" onclick="CopyCrypto('eth')"><span id="copyeth4real">ethrukfbe83mvk39283bb29c10n8</span></a><br></b></button><br>
-            <span style="user-select: none;"> <a>Money inside ETH wallet: <a id="Btcinsidewallet" style="color: rgb(248, 47, 255);">0.000487294</a> </a></h1></span>
+            <span style="user-select: none;"> <a>Money inside ETH wallet: <a id="Ethinsidewallet" style="color: rgb(248, 47, 255);"><span></span>0.000487294</a> </a></h1></span>
                     </div>
             </div>
 
 
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Select all divs with id 'HoldCrypto'
-    const cryptoDivs = document.querySelectorAll('#HoldCrypto');
-    
-    cryptoDivs.forEach(function(div) {
-        // Change cursor to pointer to indicate the div is clickable
-        div.style.cursor = 'pointer';
-        
-        // Add click event listener to each div
-        div.addEventListener('click', function(event) {
-            // Prevent the click event from triggering child elements (like buttons)
-            if (event.target.tagName.toLowerCase() === 'button' || event.target.tagName.toLowerCase() === 'a') {
-                return;
-            }
 
-            let copyText = '';
-            let type = '';
-
-            // Determine which cryptocurrency address is within the clicked div
-            const btcSpan = div.querySelector('#copybtc4real');
-            const ltcSpan = div.querySelector('#copyltc4real');
-            const ethSpan = div.querySelector('#copyeth4real');
-
-            if (btcSpan) {
-                copyText = btcSpan.innerText.trim();
-                type = 'BTC';
-            } else if (ltcSpan) {
-                copyText = ltcSpan.innerText.trim();
-                type = 'LTC';
-            } else if (ethSpan) {
-                copyText = ethSpan.innerText.trim();
-                type = 'ETH';
-            } else {
-                console.error('No cryptocurrency address found in the clicked div.');
-                return;
-            }
-
-            // Copy the address to the clipboard using the Clipboard API
-            navigator.clipboard.writeText(copyText).then(function() {
-                // Optional: Provide feedback to the user
-                // alert(`${type} address copied to clipboard!`);
-            }).catch(function(err) {
-                console.error('Failed to copy text: ', err);
-            });
-        });
-    });
-});
-
-</script>
 
 </div>
     <script>
@@ -866,5 +920,45 @@ function displayRank(rank) {
     </script>
     
 
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+  const userId = sessionStorage.getItem("userId");
+
+  if (!userId) {
+    console.error("User ID not found. Redirecting to login.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  async function fetchAndDisplayCryptoAddresses() {
+    try {
+      const response = await fetch("http://localhost:4002/api/auth/DisplayUserCryptoAdresses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+
+      const data = await response.json();
+
+      if (data.bitcoinAdress) document.getElementById("copybtc4real").innerText = data.bitcoinAdress;
+      if (data.bitcoinnumb !== undefined) document.getElementById("btckillmyself").innerText = data.bitcoinnumb;
+      if (data.litecoinAdress) document.getElementById("copyltc4real").innerText = data.litecoinAdress;
+      if (data.litecoinNumb !== undefined) document.getElementById("Ltcinsidewallet").innerText = data.litecoinNumb;
+      if (data.etheriumAdress) document.getElementById("copyeth4real").innerText = data.etheriumAdress;
+      if (data.etheriumnumb !== undefined) document.getElementById("Ethinsidewallet").innerText = data.etheriumnumb;
+
+      console.log("Crypto addresses updated:", data);
+    } catch (error) {
+      console.error("Error fetching crypto addresses:", error);
+    }
+  }
+
+  fetchAndDisplayCryptoAddresses();
+
+  setInterval(fetchAndDisplayCryptoAddresses, Math.floor(Math.random() * 5000) + 15000);
+});
+
+
+        </script>
 </body>
 </html>
