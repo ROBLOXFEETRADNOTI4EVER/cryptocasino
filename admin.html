@@ -775,5 +775,27 @@ async function testSecurityAPI() {
 
 testSecurityAPI();
 </script>
+
+<script>
+
+
+async function testSecurityAPI() {
+  try {
+    const response = await fetch("http://localhost:4002/api/securitycode", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    console.log("Random Number from Backend:", data.code);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+testSecurityAPI();
+</script>
 </body>
 </html>

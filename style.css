@@ -151,6 +151,19 @@ body {
     border: none;
 }
 
+#submit:disabled {
+    opacity: 0.5; /* Make the button appear faded */
+    cursor: not-allowed; /* Change cursor to indicate it's disabled */
+    background: #555; /* Give it a grayed-out look */
+    animation: none; /* Stop animations */
+    color: #999; /* Change text color */
+    box-shadow: none; /* Remove any shadows */
+}
+
+#submit:disabled:hover {
+    background: #555; /* Prevent hover color change */
+    color: #999; /* Keep text color the same */
+}
 @keyframes smoothBackground {
     0% {
         background-position: 40% 0%;

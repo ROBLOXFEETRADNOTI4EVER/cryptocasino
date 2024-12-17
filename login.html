@@ -6,12 +6,84 @@
     <title>Simple Form-ToRegist/LOgin</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<style>
+    #forgotpassdivvy{
+        justify-content: center;
+            align-items: center;
+            background: rgba(145, 145, 145, 0.048);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 15px; 
+            border-radius: 10px;
+            width: 96%;
+            padding-left: 2%;
+            padding-right: 2%; 
+            text-align: center;
+            background: linear-gradient(45deg, #2e2e2e 0%, #4e4e4e73 100%);
+            animation: gradient 10s ease-in-out infinite;
+            background-size: 400%;
+            font-size: 1em; 
+            align-items: center;
+    }
+    #inputcode{
+        justify-content: center;
+            align-items: center;
+            background: rgba(145, 145, 145, 0.048);
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+            padding: 15px; 
+            border-radius: 10px;
+            width: 2%;
+            height: 20px;
+            padding-left: 2%;
+            padding-right: 2%; 
+            text-align: center;
+            background: linear-gradient(45deg,  #4b494e 0%, #ffffff73  100%);
+            animation: gradient 10s ease-in-out infinite;
+            background-size: 400%;
+            font-size: 1em; 
+            align-items: center;
+    }
+    #putinputsnexttoeachother{
+        display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px; 
+            margin-top: 20px; 
+    }
+    #inputynumb{
+        width: 24px;
+        height: 24px;
+        font-size: larger;
+        height: fit-content;
+        background-color: #4b494e48;
+        border-radius: 5px;
+        border: none;
+        transition: font-weight,3s;
+        text-align: center;
+}
+#inputynumb:active{
+    font-weight: bold;
+}
+
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-arrows {
+    -moz-appearance: textfield;
+}
+#emailinputy{
+    background-color: #c0c0c0;
+}
+</style>
 <body>
 
     <input type="button" id="Btn" value="HomePage" >
     <div id="Logo">
         <img src="images/Untitled(1).png" alt="Logo" id="lLogo" draggable="false" >
     </div>
+
     <div id="RegisterContainer">
         <div id="Register">
 
@@ -25,6 +97,7 @@
                     
                     <label for="password" class="llaberl">Password</label><br>
                     <input type="password" id="password" name="password" required class="innput"><br><br>
+                    <a onclick="Forgotpass()" style="display: flex; justify-content: right; margin-top: -15px;" href="#forgotpass">Forgot password?</a><br>
                     <a href="register.html" style="display: flex; justify-content: right; margin-top: -15px; " >Don't have an account?</a><br>
 
 
@@ -32,8 +105,128 @@
                     <button type="button" id="submit">Submit</button>
             </form>
         </div>
-        
+    </div>
 </div>
+<br>
+<div id="forgotpassdivvy" style="display: none; align-items: center; justify-content: center;">
+    <form id="forgotpasswordform">
+        <label for="">Enter your email address</label><br>
+        <input type="email" class="innput" id="emailinputy"><br>
+
+        <!-- First submit button (to disable for 60 seconds) -->
+        <input type="submit" id="submit" value="Submit" onclick="disablefor60secs()" class="submitbtndisable60ces"><br>
+
+        <label for="">Enter the code that was sent to your email address 
+            <a id="timer60secs" style="visibility: hidden; color: white;">Please wait 60 seconds</a>
+        </label>
+        <hr>
+
+        <div id="putinputsnexttoeachother">
+            <div id="inputcode">
+                <input type="number" id="inputynumb" class="no-arrows">
+            </div>
+            <div id="inputcode">
+                <input type="number" id="inputynumb" class="no-arrows">
+            </div>
+            <div id="inputcode">
+                <input type="number" id="inputynumb" class="no-arrows">
+            </div>
+            <div id="inputcode">
+                <input type="number" id="inputynumb" class="no-arrows">
+            </div>
+            <div id="inputcode">
+                <input type="number" id="inputynumb" class="no-arrows">
+            </div>
+            <div id="inputcode">
+                <input type="number" id="inputynumb" class="no-arrows">
+            </div>
+        </div>
+
+        <!-- Second submit button (remains unaffected) -->
+        <input type="button" id="submit" value="Submit" onclick="sendForgotPasswordEmail()" class="submitbtndisable60ces">
+    </form>
+    <a href="#goback" onclick="Goback()">Go back</a>
+</div>
+
+
     <script src="login.js"></script>    
+
+    <script>
+        function Forgotpass() {
+            let loginDiv = document.getElementById("Register");
+            let forgotPassDiv = document.getElementById("forgotpassdivvy");
+    
+            // Hide the login div and show the forgot password div
+            loginDiv.style.display = "none";
+            forgotPassDiv.style.display = "block";
+        }
+    
+        function Goback() {
+            let loginDiv = document.getElementById("Register");
+            let forgotPassDiv = document.getElementById("forgotpassdivvy");
+    
+            // Show the login div and hide the forgot password div
+            loginDiv.style.display = "block";
+            forgotPassDiv.style.display = "none";
+        }
+    </script>
+
+    <script>
+function disablefor60secs() {
+    // Target only the first submit button using querySelector
+    let firstSubmitButton = document.querySelector(".submitbtndisable60ces");
+    let timerElement = document.getElementById("timer60secs");
+    let timeLeft = 60; // Start the timer at 60 seconds
+
+    // Disable the first submit button and show the timer
+    firstSubmitButton.disabled = true;
+    timerElement.style.visibility = "visible";
+    timerElement.textContent = `Please wait ${timeLeft} seconds`;
+
+    // Countdown timer
+    let countdown = setInterval(() => {
+        timeLeft -= 1;
+        timerElement.textContent = `Please wait ${timeLeft} seconds`;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown); // Stop the countdown
+            timerElement.style.visibility = "hidden"; // Hide the timer
+            firstSubmitButton.disabled = false; // Re-enable the button
+        }
+    }, 1000); // Update every second
+}
+
+    </script>
+      <script>
+async function sendForgotPasswordEmail() {
+  const email = document.getElementById("emailinputy").value.trim();
+
+  if (!email) {
+    alert("Please enter an email address.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:4002/api/auth/forgot-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("Verification code sent to your email.");
+    } else {
+      alert(result.error || "Failed to send email. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("An error occurred. Please try again.");
+  }
+}
+
+
+        </script>
 </body>
 </html>
