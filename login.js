@@ -21,7 +21,7 @@ document.querySelector("#submit").addEventListener("click", async (event) => {
 
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const usernameRegex = /^[a-zA-Z0-9_-]{5,15}$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d@$!%*?&]{8,16}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,64}$/;
 
   let errorContainer = document.querySelector("#errorMessages");
 

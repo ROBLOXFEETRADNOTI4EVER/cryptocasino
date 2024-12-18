@@ -68,6 +68,7 @@
 .no-arrows::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+    
 }
 
 .no-arrows {
@@ -77,6 +78,31 @@
     background-color: #c0c0c0;
 }
 </style>
+
+<style>
+    #putinputsnexttoeachother {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .code-input {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .code-input:focus {
+        border-color: #007BFF;
+        outline: none;
+    }
+</style>
+
 <body>
 
     <input type="button" id="Btn" value="HomePage" >
@@ -109,12 +135,30 @@
 </div>
 <br>
 <div id="forgotpassdivvy" style="display: none; align-items: center; justify-content: center;">
+    <div id="resetPassDiv" style="display: none; align-items: center; justify-content: center;">
+        <div id="RegisterContainer">
+            <div id="Register">
+                <form id="resetPasswordForm">
+                    <h2 style="color: white; text-align: center;">Reset Your Password</h2>
+                    <label for="newPasswordInput" class="llaberl">New Password</label><br>
+                    <input type="password" id="newPasswordInput" class="innput" placeholder="New Password" required><br><br>
+    
+                    <label for="confirmPasswordInput" class="llaberl">Confirm Password</label><br>
+                    <input type="password" id="confirmPasswordInput" class="innput" placeholder="Confirm Password" required><br><br>
+    
+                    <input type="button" id="resetPasswordSubmit" value="Reset Password" onclick="submitNewPassword()" class="submitbtndisable60ces">
+                </form>
+                <a href="#goback" onclick="Goback()" style="display: block; margin-top: 10px;">Go back</a>
+            </div>
+        </div>
+    </div>
     <form id="forgotpasswordform">
         <label for="">Enter your email address</label><br>
         <input type="email" class="innput" id="emailinputy"><br>
 
         <!-- First submit button (to disable for 60 seconds) -->
-        <input type="submit" id="submit" value="Submit" onclick="disablefor60secs()" class="submitbtndisable60ces"><br>
+        <input type="button" id="submit" value="Submit" onclick="sendForgotPasswordEmail()" class="submitbtndisable60ces">
+<br>
 
         <label for="">Enter the code that was sent to your email address 
             <a id="timer60secs" style="visibility: hidden; color: white;">Please wait 60 seconds</a>
@@ -123,23 +167,27 @@
 
         <div id="putinputsnexttoeachother">
             <div id="inputcode">
-                <input type="number" id="inputynumb" class="no-arrows">
+                <input type="number" maxlength="1" id="digit1" class="no-arrows" oninput="moveToNext(this, 'digit2')" onkeydown="moveToPrevious(event, 'digit1')" style="        width: 24px;height: 24px;font-size: larger;height: fit-content;background-color: #4b494e48;border-radius: 5px;border: none;transition: font-weight,3s;text-align: center;">
             </div>
             <div id="inputcode">
-                <input type="number" id="inputynumb" class="no-arrows">
+                <input type="number" maxlength="1" id="digit2" class="no-arrows" oninput="moveToNext(this, 'digit3')" onkeydown="moveToPrevious(event, 'digit1')" style="        width: 24px;height: 24px;font-size: larger;height: fit-content;background-color: #4b494e48;border-radius: 5px;border: none;transition: font-weight,3s;text-align: center;">
             </div>
             <div id="inputcode">
-                <input type="number" id="inputynumb" class="no-arrows">
+                <input type="number" maxlength="1" id="digit3" class="no-arrows" oninput="moveToNext(this, 'digit4')" onkeydown="moveToPrevious(event, 'digit2')" style="        width: 24px;height: 24px;font-size: larger;height: fit-content;background-color: #4b494e48;border-radius: 5px;border: none;transition: font-weight,3s;text-align: center;">
             </div>
             <div id="inputcode">
-                <input type="number" id="inputynumb" class="no-arrows">
+                <input type="number" maxlength="1" id="digit4" class="no-arrows" oninput="moveToNext(this, 'digit5')" onkeydown="moveToPrevious(event, 'digit3')" style="        width: 24px;height: 24px;font-size: larger;height: fit-content;background-color: #4b494e48;border-radius: 5px;border: none;transition: font-weight,3s;text-align: center;">
             </div>
             <div id="inputcode">
-                <input type="number" id="inputynumb" class="no-arrows">
+                <input type="number" maxlength="1" id="digit5" class="no-arrows" oninput="moveToNext(this, 'digit6')" class="inputynumb" onkeydown="moveToPrevious(event, 'digit4')" style="        width: 24px;height: 24px;font-size: larger;height: fit-content;background-color: #4b494e48;border-radius: 5px;border: none;transition: font-weight,3s;text-align: center;">
             </div>
             <div id="inputcode">
-                <input type="number" id="inputynumb" class="no-arrows">
+                <input type="number" maxlength="1" id="digit6" class="no-arrows" onkeydown="moveToPrevious(event, 'digit5')" style="        width: 24px;height: 24px;font-size: larger;height: fit-content;background-color: #4b494e48;border-radius: 5px;border: none;transition: font-weight,3s;text-align: center;">
             </div>
+        </div>
+        
+        <!-- Add submit button below -->
+        <input type="button" id="submitCode" value="Submit Code" onclick="verifyCode()" class="submitbtndisable60ces">
         </div>
 
         <!-- Second submit button (remains unaffected) -->
@@ -150,13 +198,12 @@
 
 
     <script src="login.js"></script>    
-
     <script>
+        // Show/hide forgot password div
         function Forgotpass() {
             let loginDiv = document.getElementById("Register");
             let forgotPassDiv = document.getElementById("forgotpassdivvy");
     
-            // Hide the login div and show the forgot password div
             loginDiv.style.display = "none";
             forgotPassDiv.style.display = "block";
         }
@@ -165,68 +212,218 @@
             let loginDiv = document.getElementById("Register");
             let forgotPassDiv = document.getElementById("forgotpassdivvy");
     
-            // Show the login div and hide the forgot password div
             loginDiv.style.display = "block";
             forgotPassDiv.style.display = "none";
         }
-    </script>
-
-    <script>
-function disablefor60secs() {
-    // Target only the first submit button using querySelector
-    let firstSubmitButton = document.querySelector(".submitbtndisable60ces");
-    let timerElement = document.getElementById("timer60secs");
-    let timeLeft = 60; // Start the timer at 60 seconds
-
-    // Disable the first submit button and show the timer
-    firstSubmitButton.disabled = true;
-    timerElement.style.visibility = "visible";
-    timerElement.textContent = `Please wait ${timeLeft} seconds`;
-
-    // Countdown timer
-    let countdown = setInterval(() => {
-        timeLeft -= 1;
-        timerElement.textContent = `Please wait ${timeLeft} seconds`;
-
-        if (timeLeft <= 0) {
-            clearInterval(countdown); // Stop the countdown
-            timerElement.style.visibility = "hidden"; // Hide the timer
-            firstSubmitButton.disabled = false; // Re-enable the button
+    
+        // Send forgot password email and handle timer
+        async function sendForgotPasswordEmail() {
+          const email = document.getElementById("emailinputy").value.trim();
+          const submitButton = document.querySelector(".submitbtndisable60ces");
+          const timerElement = document.getElementById("timer60secs");
+        
+          if (!email) {
+            alert("Please enter an email address.");
+            return;
+          }
+        
+          try {
+            const checkResponse = await fetch("http://localhost:4002/api/auth/check-email", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
+            });
+        
+            const checkResult = await checkResponse.json();
+        
+            if (!checkResponse.ok) {
+              alert(checkResult.error || "Email not found in our database.");
+              return;
+            }
+        
+            const response = await fetch("http://localhost:4002/api/auth/forgot-password", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
+            });
+        
+            const result = await response.json();
+        
+            if (response.ok) {
+              alert("Verification code has been sent to your email.");
+              disableSubmitButtonFor60Secs(submitButton, timerElement);
+            } else {
+              alert(result.error || "Failed to send the verification code. Please try again.");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An unexpected error occurred. Please try again.");
+          }
         }
-    }, 1000); // Update every second
-}
-
+        
+        function disableSubmitButtonFor60Secs(button, timerElement) {
+          let timeLeft = 60;
+        
+          button.disabled = true;
+          timerElement.style.visibility = "visible";
+          timerElement.textContent = `Please wait ${timeLeft} seconds`;
+        
+          const countdown = setInterval(() => {
+            timeLeft -= 1;
+            timerElement.textContent = `Please wait ${timeLeft} seconds`;
+        
+            if (timeLeft <= 0) {
+              clearInterval(countdown);
+              timerElement.style.visibility = "hidden";
+              button.disabled = false;
+            }
+          }, 1000);
+        }
+    
+        // Code input navigation
+        function moveToNext(current, nextId) {
+            if (current.value.length >= 1) {
+                const nextInput = document.getElementById(nextId);
+                if (nextInput) nextInput.focus();
+            }
+        }
+        
+        function moveToPrevious(event, prevId) {
+            if (event.key === "Backspace" && !event.target.value) {
+                const prevInput = document.getElementById(prevId);
+                if (prevInput) prevInput.focus();
+            }
+        }
+    
+        async function verifyCode() {
+            const digits = [
+                document.getElementById("digit1").value,
+                document.getElementById("digit2").value,
+                document.getElementById("digit3").value,
+                document.getElementById("digit4").value,
+                document.getElementById("digit5").value,
+                document.getElementById("digit6").value,
+            ].join("");
+        
+            if (digits.length !== 6 || !/^\d{6}$/.test(digits)) {
+                alert("Please enter a valid 6-digit code.");
+                return;
+            }
+        
+            try {
+                const response = await fetch("http://localhost:4002/api/auth/verify-code", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ code: digits }),
+                });
+        
+                const result = await response.json();
+        
+                if (response.ok) {
+                    alert("Code verified! Please check your email for the reset link.");
+                } else {    
+                    alert(result.error || "Invalid code.");
+                }
+            } catch (error) {
+                console.error("Error verifying code:", error);
+                alert("Failed to verify the code. Please try again.");
+            }
+        }
+    
+        // Add input navigation, arrow keys, paste support
+        document.querySelectorAll("#putinputsnexttoeachother input").forEach((input, index, inputs) => {
+            input.addEventListener("input", () => {
+                if (input.value.length >= 1) {
+                    const nextInput = inputs[index + 1];
+                    if (nextInput) nextInput.focus();
+                }
+            });
+        
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Backspace" && !input.value) {
+                    const prevInput = inputs[index - 1];
+                    if (prevInput) prevInput.focus();
+                }
+        
+                if (event.key === "ArrowLeft" && index > 0) {
+                    inputs[index - 1].focus();
+                }
+                if (event.key === "ArrowRight" && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        
+            input.addEventListener("paste", (e) => {
+                e.preventDefault();
+                const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
+                const chars = pasteData.split('');
+                for (let i = 0; i < chars.length && (index + i) < inputs.length; i++) {
+                    inputs[index + i].value = chars[i];
+                }
+                const nextIndex = Math.min(index + chars.length, inputs.length - 1);
+                inputs[nextIndex].focus();
+            });
+        });
+    
+        // Handle reset key link detection and show reset password div if valid
+        document.addEventListener("DOMContentLoaded", async () => {
+            const resetKey = window.location.href.split("/reset-password/")[1]; 
+            if (resetKey) {
+                try {
+                    const response = await fetch(`http://localhost:4002/reset-password/${encodeURIComponent(resetKey)}`);
+                    const data = await response.json();
+                    if (response.ok && data.valid) {
+                        document.getElementById("Register").style.display = "none";
+                        document.getElementById("forgotpassdivvy").style.display = "none";
+                        document.getElementById("resetPassDiv").style.display = "block";
+                        window.localStorage.setItem("currentResetKey", resetKey);
+                    } else {
+                        alert(data.error || "Invalid or expired reset link.");
+                    }
+                } catch (error) {
+                    console.error("Error checking reset key:", error);
+                    alert("Failed to verify reset link. Please try again.");
+                }
+            }
+        });
+    
+        async function submitNewPassword() {
+            const newPassword = document.getElementById("newPasswordInput").value;
+            const confirmPassword = document.getElementById("confirmPasswordInput").value;
+            const resetKey = window.localStorage.getItem("currentResetKey");
+    
+            if (!newPassword || !confirmPassword) {
+                alert("Please fill in both fields.");
+                return;
+            }
+    
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+    
+            try {
+                const response = await fetch("http://localhost:4002/api/auth/reset-password", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ resetKey, newPassword }),
+                });
+                const result = await response.json();
+    
+                if (response.ok) {
+                    alert("Password reset successful! You can now login with your new password.");
+                    document.getElementById("resetPassDiv").style.display = "none";
+                    document.getElementById("Register").style.display = "block";
+                    window.localStorage.removeItem("currentResetKey");
+                } else {
+                    alert(result.error || "Failed to reset password.");
+                }
+            } catch (error) {
+                console.error("Error resetting password:", error);
+                alert("An unexpected error occurred. Please try again.");
+            }
+        }
     </script>
-      <script>
-async function sendForgotPasswordEmail() {
-  const email = document.getElementById("emailinputy").value.trim();
-
-  if (!email) {
-    alert("Please enter an email address.");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:4002/api/auth/forgot-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      alert("Verification code sent to your email.");
-    } else {
-      alert(result.error || "Failed to send email. Please try again.");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("An error occurred. Please try again.");
-  }
-}
-
-
-        </script>
+    
 </body>
 </html>
