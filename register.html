@@ -6,6 +6,91 @@
     <title>Simple Form-ToRegist/LOgin</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<style>
+    .security-input{
+            width: 25rem;
+        height: 30px;
+        border-radius: 5px;
+        width: 25rem;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #c0c0c0;
+    font-weight: bolder;
+    box-shadow: 0px 0px 25px 0px rgba(9, 190, 48, 0.5);
+
+
+    }
+    .security-input:invalid{
+        width: 25rem;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #c0c0c0;
+    font-weight: bolder;
+    color: red;
+    box-shadow: 0px 0px 25px 0px rgba(190, 9, 9, 0.5);
+    }
+
+    #SubmitEmailForcode:hover{
+    font-size: xx-large;
+    font-family: monospace;
+    width: 5rem;
+    height: 35px;
+    border-radius: 5px;
+    background: linear-gradient(120deg, #616161, #c448c9, #1f0120);
+    background-size: 200% 200%;
+    animation: smoothBackground 10s ease-in-out infinite;
+    -webkit-animation: submit 1s ease-in-out infinite alternate;
+    -moz-animation: submit 1s ease-in-out infinite alternate;
+    animation: submit 1s ease-in-out infinite alternate;
+    border: none;
+}
+#SubmitEmailForcode:active{
+    font-size: xx-large;
+    font-family: monospace;
+    width: 5rem;
+    height: 35px;
+    border-radius: 5px;
+    background: linear-gradient(120deg, #0fa102, #115a29, #1f0120);
+    background-size: 200% 200%;
+    animation: smoothBackground 10s ease-in-out infinite;
+    -webkit-animation: submit 1s ease-in-out infinite alternate;
+    -moz-animation: submit 1s ease-in-out infinite alternate;
+    animation: submit 1s ease-in-out infinite alternate;
+    border: none;
+}
+
+    #SubmitEmailForcode{
+        
+    font-size: xx-large;
+    font-family: monospace;
+    color: rgb(187, 184, 184);
+    width: 5rem;
+    height: 35px;
+    border-radius: 5px;
+    background: linear-gradient(120deg, #2e0e61, #3b3b3b, #1f0120);
+    background-size: 200% 200%;
+    animation: smoothBackground 10s ease-in-out infinite;
+    -webkit-animation: submit 1s ease-in-out infinite alternate;
+    -moz-animation: submit 1s ease-in-out infinite alternate;
+    animation: submit 1s ease-in-out infinite alternate;
+    border: none;
+    font-weight: bold;
+}
+#SubmitEmailForCode{
+    opacity: 0.5; /* Make the button appear faded */
+    cursor: not-allowed; /* Change cursor to indicate it's disabled */
+    background: #555; /* Give it a grayed-out look */
+    animation: none; /* Stop animations */
+    color: #999; /* Change text color */
+    box-shadow: none; /* Remove any shadows */
+    
+}
+    
+#SubmitEmailForCode:disabled:hover {
+    background: #555; /* Prevent hover color change */
+    color: #999; /* Keep text color the same */
+}
+</style>
 <body>
 
     <input type="button" id="Btn" value="HomePage" >
@@ -21,8 +106,13 @@
                     <input type="text" id="username" name="username" required class="innput"><br><br>
                     
                     <label for="email" class="llaberl">Email</label><br>
-                    <input type="email" id="email" name="email" required class="innput"><br><br>
-                    
+                    <div id="OTS" style="display: flex; justify-content: right; align-items: center; "> <!--One time email veirfy code -->
+                        <input type="email" id="email" name="email" required class="innput" style="width: 18.2em;"><br><br>
+                        <input type="text" id="securityCode" class="security-input" name="securityCode" required style="width: 20%; text-align: center; justify-content: right" maxlength="12" minlength="8" placeholder="8 digit code"><br>
+                        <input  type="button" id="SubmitEmailForcode" value="Code">
+                    </div>
+
+
                     <label for="password" class="llaberl">Password</label><br>
                     <input type="password" id="password" name="password" required class="innput"><br><br>
                     <a href="login.html" style="display: flex; justify-content: right; margin-top: -15px; " >Already have an account?</a><br>
@@ -33,6 +123,9 @@
         </div>
         
 </div>
+<script  src="slidenote.js"></script>
+
+
     <script src="index.js"></script>    
 </body>
 </html>
